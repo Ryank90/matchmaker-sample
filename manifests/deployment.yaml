@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: matchmaker-sample
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        role: matchmaker
+    spec:
+      nodeSelector:
+        role: apps
+      containers:
+      - name: matchmaker
+        image: gcr.io/${PROJECT}/matchmaker-sample
+        imagePullPolicy: Always
+        readinessProbe:
+            httpGet:
+                path: /healthz
+                port: 8080
+                scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 3
+        env:
+          - name: REDIS_SERVICE
+            value: redis:6379
+          - name: SESSION_SERVICE
+            value: "http://sessions"
+        ports:
+        - containerPort: 8080
