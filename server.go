@@ -7,7 +7,7 @@ import (
 	"github.com/garyburd/redigo/redis"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	predis "github.com/ryank90/matchmaker/pkg/redis"
+	predis "github.com/ryank90/matchmaker-sample/pkg/redis"
 )
 
 const version string = "alpha-0.0.1"
