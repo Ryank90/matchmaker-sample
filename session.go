@@ -44,6 +44,8 @@ func (s *Server) generateSessionForGame(c redis.Conn, g *Game) (*Game, error) {
 	g.Port = sess.Port
 	g.IP = sess.IP
 	g.Status = statusClosed
+
+	return g, updateGame(c, g)
 }
 
 func (s *Server) sessionIPAndPort(sess Session) (Session, error) {
@@ -56,13 +58,13 @@ func (s *Server) sessionIPAndPort(sess Session) (Session, error) {
 			return sess, errors.Wrap(err, "error getting session information")
 		}
 
-		if r.StatusCode == http.StatusOK {
-			log.Printf("[info][session] recieved session data, status: %v", r.StatusCode)
-			body = r.Body
+		if res.StatusCode == http.StatusOK {
+			log.Printf("[info][session] recieved session data, status: %v", res.StatusCode)
+			body = res.Body
 			break
 		}
 
-		err = r.Body.Close()
+		err = res.Body.Close()
 		if err != nil {
 			log.Printf("[warn][session] could not close body: %v", err)
 		}
