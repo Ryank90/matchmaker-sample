@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Ryank90/matchmaker"
+	"github.com/Ryank90/matchmaker-sample"
 )
 
 func main() {
