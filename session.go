@@ -8,9 +8,9 @@ const (
 
 // Session represents a game session.
 type Session struct {
-	ID   string `json:""`
-	Port int    `json:""`
-	IP   string `json:""`
+	ID   string `json:"id"`
+	Port int    `json:"port,omitempty"`
+	IP   string `json:"ip,omitempty"`
 }
 
 func (s *Server) generateSessionForGame(c redis.Conn, g *Game) (*Game, error) {
